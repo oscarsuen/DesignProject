@@ -14,9 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-
-
-public class options extends JPanel implements ActionListener, ChangeListener{
+public class options extends JPanel implements ActionListener, ChangeListener {
 	display myDisplay;
 	JTextArea coding;
 	JButton runMe;
@@ -26,7 +24,7 @@ public class options extends JPanel implements ActionListener, ChangeListener{
 	boolean runningLoop;
 	JLabel expectedTime;
 
-	boolean[][] grid= new boolean [120][120];
+	boolean[][] grid = new boolean[120][120];
 
 	public options(display d) {
 
@@ -38,10 +36,10 @@ public class options extends JPanel implements ActionListener, ChangeListener{
 		JLabel s = new JLabel("fps");
 		this.add(s);
 
-		fps = new JSlider(1, 30);
+		fps = new JSlider(1, 10);
 		fps.setVisible(true);
-		fps.setMajorTickSpacing(10);
-		fps.setMinorTickSpacing(5);
+		fps.setMajorTickSpacing(5);
+		fps.setMinorTickSpacing(1);
 		fps.setPaintTicks(true);
 		fps.setPaintLabels(true);
 		fps.setValue(1);
@@ -77,30 +75,32 @@ public class options extends JPanel implements ActionListener, ChangeListener{
 		this.add(programmable);
 
 	}
-	
-	public void actionPerformed(ActionEvent evt){
-		if(evt.getSource() == runMe){
+
+	public void actionPerformed(ActionEvent evt) {
+		if (evt.getSource() == runMe) {
 			String code = programmable.getText();
 			runningLoop = true;
 			runLoop();
 		}
 
 	}
-	
-	//this function will keep running until stop is pressed.
-	public void runLoop(){
-		for(int i = 0; i < runs.getValue(); i ++){
-			//process the code, make changes to boolean array
-			//and pass it to display
+
+	// this function will keep running until stop is pressed.
+	public void runLoop() {
+		for (int i = 0; i < runs.getValue(); i++) {
+			// process the code, make changes to boolean array
+			// and pass it to display
 			myDisplay.updateArray(step());
-			
-			if(i != runs.getValue() - 1){
+
+			if (i != runs.getValue() - 1) {
 				try {
-					Thread.sleep((int)(1000/fps.getValue()));
-				} catch (InterruptedException e) {}
+					Thread.sleep((int) (1000 / fps.getValue()));
+				} catch (InterruptedException e) {
+				}
 			}
 		}
 	}
+
 	public boolean[][] step() {
 		boolean[][] orig = copy();
 		boolean[][] after = copy();
@@ -111,8 +111,9 @@ public class options extends JPanel implements ActionListener, ChangeListener{
 		}
 		return after;
 	}
+
 	private boolean[][] copy() {
-		boolean[][] copy= new boolean[120][120];
+		boolean[][] copy = new boolean[120][120];
 		for (int i = 0; i < 120; i++) {
 			for (int j = 0; j < 120; j++) {
 				copy[i][j] = myDisplay.getArray()[i][j];
@@ -120,45 +121,47 @@ public class options extends JPanel implements ActionListener, ChangeListener{
 		}
 		return copy;
 	}
+
 	private boolean decide(boolean[][] orig, int i, int j) {
 		if (orig[i][j]) {
 			if (neighbors(orig, i, j) < 2) {
 				return false;
 			} else if (neighbors(orig, i, j) == 2 || neighbors(orig, i, j) == 3) {
-				return  true;
-			} else{
+				return true;
+			} else {
 				return false;
 			}
-		}
-		else{
+		} else {
 			if (neighbors(orig, i, j) == 3) {
 				return true;
-			}
-			else{
+			} else {
 				return false;
 			}
 		}
 	}
+
 	public int neighbors(boolean[][] orig, int i, int j) {
 		int rtn = 0;
-		if (i > 0 && i < 120-1 && j > 0 && j < 120-1) {
-			rtn += i(orig[i-1][j-1]);
-			rtn += i(orig[i-1][j+0]);
-			rtn += i(orig[i-1][j+1]);
-			rtn += i(orig[i+0][j-1]);
-			rtn += i(orig[i+0][j+1]);
-			rtn += i(orig[i+1][j-1]);
-			rtn += i(orig[i+1][j+0]);
-			rtn += i(orig[i+1][j+1]);
+		if (i > 0 && i < 120 - 1 && j > 0 && j < 120 - 1) {
+			rtn += i(orig[i - 1][j - 1]);
+			rtn += i(orig[i - 1][j + 0]);
+			rtn += i(orig[i - 1][j + 1]);
+			rtn += i(orig[i + 0][j - 1]);
+			rtn += i(orig[i + 0][j + 1]);
+			rtn += i(orig[i + 1][j - 1]);
+			rtn += i(orig[i + 1][j + 0]);
+			rtn += i(orig[i + 1][j + 1]);
 		}
 		return rtn;
 	}
+
 	private int i(boolean b) {
-		return b ? 1:0;
+		return b ? 1 : 0;
 	}
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
-		expectedTime.setText("Expected Time: " + ((int)(runs.getValue()/fps.getValue())) + " sec ");
+		expectedTime.setText("Expected Time: "
+				+ ((int) (runs.getValue() / fps.getValue())) + " sec ");
 	}
 }
