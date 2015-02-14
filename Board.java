@@ -18,15 +18,16 @@ class Board {
 		}
 	}
 
-	public boolean[][] getArray() {
-		return array;
-	}
-
-	public void step() {
+	public void apply(Rule r) {
 		boolean[][] orig = copy();
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				decide(orig, i, j);
+				if (orig[i][j]) {
+					array[i][j] = r.getS()[r.neighbors(orig,i,j,width,height)];
+				}
+				if (!orig[i][j]) {
+					array[i][j] = r.getB()[r.neighbors(orig,i,j,width,height)];
+				}
 			}
 		}
 	}
@@ -39,38 +40,6 @@ class Board {
 			}
 		}
 		return copy;
-	}
-
-	private void decide(boolean[][] orig, int i, int j) {
-		if (orig[i][j]) {
-			if (neighbors(orig, i, j) < 2) {
-				array[i][j] = false;
-			} else if (neighbors(orig, i, j) == 2 || neighbors(orig, i, j) == 3) {
-				array[i][j] = true;
-			} else if (neighbors(orig, i, j) > 3) {
-				array[i][j] = false;
-			}
-		}
-		if (!orig[i][j]) {
-			if (neighbors(orig, i, j) == 3) {
-				array[i][j] = true;
-			}
-		}
-	}
-
-	public int neighbors(boolean[][] orig, int i, int j) {
-		int rtn = 0;
-		if (i > 0 && i < width-1 && j > 0 && j < height-1) {
-			rtn += i(orig[i-1][j-1]);
-			rtn += i(orig[i-1][j+0]);
-			rtn += i(orig[i-1][j+1]);
-			rtn += i(orig[i+0][j-1]);
-			rtn += i(orig[i+0][j+1]);
-			rtn += i(orig[i+1][j-1]);
-			rtn += i(orig[i+1][j+0]);
-			rtn += i(orig[i+1][j+1]);
-		}
-		return rtn;
 	}
 
 	private int i(boolean b) {
