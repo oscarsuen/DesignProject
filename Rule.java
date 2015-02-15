@@ -3,6 +3,15 @@ class Rule {
 	private boolean[] survival;
 
 	public static Rule LIFE = new Rule(new int[]{3}, new int[]{2,3});
+	public static Rule REPLICATOR = new Rule(new int[]{1,3,5,7}, new int[]{1,3,5,7});
+	public static Rule SEEDS = new Rule(new int[]{2}, new int[]{});
+	public static Rule LIFE_WO_DEATH = new Rule(new int[]{3}, new int[]{0,1,2,3,4,5,6,7,8});
+	public static Rule LIFE_34 = new Rule(new int[]{3,4}, new int[]{3,4});
+	public static Rule DIAMOEBA = new Rule(new int[]{3,5,6,7,8}, new int[]{5,6,7,8});
+	public static Rule TWO_BY_TWO = new Rule(new int[]{3,6}, new int[]{1,2,5});
+	public static Rule HIGH_LIFE = new Rule(new int[]{3,6}, new int[]{1,2,5});
+	public static Rule DAY_NIGHT = new Rule(new int[]{3,6,7,8}, new int[]{3,4,6,7,8});
+	public static Rule MORLEY = new Rule(new int[]{3,6,8}, new int[]{3,4,5});
 
 	public Rule() {
 		this(new int[]{}, new int[]{});

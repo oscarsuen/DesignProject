@@ -36,7 +36,7 @@ public class Options extends JPanel implements ActionListener, ChangeListener {
 		JLabel s = new JLabel("fps");
 		this.add(s);
 
-		fps = new JSlider(1, 10);
+		fps = new JSlider(1, 20);
 		fps.setVisible(true);
 		fps.setMajorTickSpacing(5);
 		fps.setMinorTickSpacing(1);

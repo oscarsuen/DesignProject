@@ -16,7 +16,7 @@ public class Display extends JPanel implements MouseListener, MouseMotionListene
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		setVisible(true);
-		setBackground(Color.GRAY);
+		setBackground(Color.BLACK);
 		// for testing purposes
 		for (int x = 0; x < 120; x++) {
 			for (int y = 0; y < 120; y++) {
@@ -37,7 +37,7 @@ public class Display extends JPanel implements MouseListener, MouseMotionListene
 		for (int x = 0; x < game.getWidth(); x++) {
 			for (int y = 0; y < game.getWidth(); y++) {
 					if(game.get(x,y)){
-						g.setColor(Color.PINK);
+						g.setColor(Color.GREEN);
 						g.fillRect(5 * x, 5 * y, 5, 5);
 					}
 				}
