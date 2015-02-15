@@ -18,6 +18,10 @@ class Board {
 		}
 	}
 
+	public boolean[][] getArray() {
+		return array;
+	}
+
 	public void apply(Rule r) {
 		boolean[][] orig = copy();
 		for (int i = 0; i < width; i++) {
@@ -59,5 +63,17 @@ class Board {
 			rtn += "\n";
 		}
 		return rtn;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public boolean get(int i, int j) {
+		return array[i][j];
 	}
 }

@@ -3,19 +3,23 @@ class Game {
 	Rule r;
 
 	public Game() {
-		b = new Board();
-		r = new Rule();
+		this.b = new Board();
+		this.r = new Rule();
 	}
 
 	public Game(Rule r) {
-		b = new Board();
+		this.b = new Board();
+		this.r = r;
+	}
+
+	public Game(int w, int h, Rule r) {
+		this.b = new Board(w,h);
 		this.r = r;
 	}
 
 	public Game(int w, int h, int[] b, int[] s) {
-		this.r = new Rule(b,s);
 		this.b = new Board(w,h);
-		
+		this.r = new Rule(b,s);
 	}
 
 	public void step() {
@@ -28,5 +32,21 @@ class Game {
 
 	public String toString() {
 		return b.toString();
+	}
+
+	public int getWidth() {
+		return b.getWidth();
+	}
+
+	public int getHeight() {
+		return b.getHeight();
+	}
+
+	public boolean get(int i, int j) {
+		return b.get(i,j);
+	}
+
+	public boolean[][] getArray() {
+		return b.getArray();
 	}
 }

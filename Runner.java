@@ -17,8 +17,8 @@ public class Runner {
 		JPanel main = new JPanel();
 		main.setLayout(new BoxLayout(main, BoxLayout.X_AXIS));
 
-		display d = new display();
-		options o = new options(d);
+		Display d = new Display();
+		Options o = new Options(d);
 		o.setPreferredSize(new Dimension(300, 600));
 		d.setPreferredSize(new Dimension(600, 600));
 
